@@ -67,7 +67,6 @@ export default {
     return {
       query: '',
       query_by: 'title',
-      facet_by: '',
       sort_by: '',
       per_page: '10',
       books: [],
@@ -81,7 +80,6 @@ export default {
       const searchParams = {
         q: this.query.trim() || '*',
         query_by: this.query_by || 'title',
-        facet_by: this.facet_by,
         sort_by: this.sort_by,
         per_page: this.per_page,
       };
