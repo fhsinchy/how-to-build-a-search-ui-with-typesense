@@ -13,7 +13,7 @@ docker container run \
 # index data
 cd server 
 npm install
-node indexer.js
+node data/indexer.js
 
 # start client
 cd client
