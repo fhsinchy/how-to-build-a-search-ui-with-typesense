@@ -7,37 +7,47 @@
             <div class="field">
               <div class="control">
                 <label class="label">Search Query</label>
-                <input class="input" type="text" placeholder="Search..." v-model="searchParams.q" @keyup="search">
+                <input class="input" type="text" placeholder="Search..." v-model="query" @keyup="search">
               </div>
             </div>
             <div class="field">
               <div class="select mr-2">
-                <select v-model="searchParams.query_by">
-                  <option>Sort By</option>
-                  <option value="publication_year">Year</option>
+                <select v-model="query_by" @change="search">
+                  <option value="" selected disabled>Query By</option>
                   <option value="title">Title</option>
-                  <option value="average_rating">Rating</option>
+                  <option value="authors">Authors</option>
                 </select>
               </div>
               <div class="select ml-2">
-                <select v-model="searchParams.sort_by">
-                  <option>Query By</option>
+                <select v-model="sort_by" @change="search">
+                  <option value="" selected disabled>Sort By</option>
                   <option value="publication_year:desc">Year Descending</option>
                   <option value="publication_year:asc">Year Ascending</option>
                   <option value="title:desc">Title Descending</option>
                   <option value="title:asc">Title Ascending</option>
+                  <option value="average_rating:desc">Average Rating Descending</option>
+                  <option value="average_rating:asc">Average Rating Ascending</option>
+                </select>
+              </div>
+              <div class="select ml-2">
+                <select v-model="per_page" @change="search">
+                  <option value="" selected disabled>Items Per Page</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                  <option value="25">25</option>
                 </select>
               </div>
             </div>
           </div>
         </div>
-        <div v-if="searchResults.hits.length > 0" class="row columns is-multiline">
-          <div v-for="hit in searchResults.hits" :key="hit.document.id" class="column is-4">
-            <card :book="hit.document" />
+        <div v-if="books.length > 0" class="row columns is-multiline">
+          <div v-for="book in books" :key="book.document.id" class="column is-4">
+            <card :book="book.document" />
           </div>
         </div>
         <div v-else class="notification is-primary">
-          Write your search query in the box above to see Typesens in action...
+          found nothing
         </div>
       </div>
     </div>
@@ -55,28 +65,31 @@ export default {
   },
   data() {
     return {
-      searchParams: {
-        q: '',
-        query_by: 'title',
-        facet_by  : 'authors',
-        sort_by: 'publication_year:desc',
-      },
-      searchResults: {
-        hits: [],
-      },
-    }
+      query: '',
+      query_by: 'title',
+      facet_by: '',
+      sort_by: '',
+      per_page: '10',
+      books: [],
+    };
+  },
+  async mounted() {
+    await this.search();
   },
   methods: {
-    search() {
-      const instance = this;
-      client.collections('books')
-        .documents()
-        .search(instance.searchParams)
-        .then(function (searchResults) {
-          instance.searchResults = searchResults;
-          console.log(searchResults);
-        })
-    }
-  }
+    search: async function() {
+      const searchParams = {
+        q: this.query.trim() || '*',
+        query_by: this.query_by || 'title',
+        facet_by: this.facet_by,
+        sort_by: this.sort_by,
+        per_page: this.per_page,
+      };
+
+      const searchResults = await client.collections('books').documents().search(searchParams);
+      this.books = searchResults.hits;
+      console.log(searchResults);
+    },
+  },
 }
 </script>

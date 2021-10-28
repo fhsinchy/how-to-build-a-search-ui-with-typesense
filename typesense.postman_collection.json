@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "5e56b52c-2c17-44b9-a643-b5c34ba2ce1a",
+		"name": "typesense",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/health",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-TYPESENSE-API-KEY",
+						"value": "vaqcyr27eJ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/collections/books/documents/search?q=*&query_by=title&sort_by=average_rating:desc&per_page=5",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"collections",
+						"books",
+						"documents",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "*"
+						},
+						{
+							"key": "query_by",
+							"value": "title"
+						},
+						{
+							"key": "sort_by",
+							"value": "average_rating:desc"
+						},
+						{
+							"key": "per_page",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "weighted-search",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-TYPESENSE-API-KEY",
+						"value": "vaqcyr27eJ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/collections/books/documents/search?q=*&query_by=title,authors&sort_by=average_rating:desc&query_by_weights=1,2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"collections",
+						"books",
+						"documents",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "*"
+						},
+						{
+							"key": "query_by",
+							"value": "title,authors"
+						},
+						{
+							"key": "sort_by",
+							"value": "average_rating:desc"
+						},
+						{
+							"key": "query_by_weights",
+							"value": "1,2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filtered-search",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-TYPESENSE-API-KEY",
+						"value": "vaqcyr27eJ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/collections/books/documents/search?q=*&query_by=title&sort_by=average_rating:desc&filter_by=average_rating:>4",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"collections",
+						"books",
+						"documents",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "*"
+						},
+						{
+							"key": "query_by",
+							"value": "title"
+						},
+						{
+							"key": "sort_by",
+							"value": "average_rating:desc"
+						},
+						{
+							"key": "filter_by",
+							"value": "average_rating:>4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "grouped-search",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-TYPESENSE-API-KEY",
+						"value": "vaqcyr27eJ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/collections/books/documents/search?q=*&query_by=title&sort_by=average_rating:desc&group_by=authors",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"collections",
+						"books",
+						"documents",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "*"
+						},
+						{
+							"key": "query_by",
+							"value": "title"
+						},
+						{
+							"key": "sort_by",
+							"value": "average_rating:desc"
+						},
+						{
+							"key": "group_by",
+							"value": "authors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "faceted-search",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-TYPESENSE-API-KEY",
+						"value": "vaqcyr27eJ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/collections/books/documents/search?q=*&query_by=title&sort_by=average_rating:desc&per_page=5&facet_by=publication_year",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"collections",
+						"books",
+						"documents",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "*"
+						},
+						{
+							"key": "query_by",
+							"value": "title"
+						},
+						{
+							"key": "sort_by",
+							"value": "average_rating:desc"
+						},
+						{
+							"key": "per_page",
+							"value": "5"
+						},
+						{
+							"key": "facet_by",
+							"value": "publication_year"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:8108"
+		}
+	]
+}

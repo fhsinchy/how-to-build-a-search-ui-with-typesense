@@ -10,15 +10,15 @@ docker container run \
     --data-dir /data \
     --api-key=vaqcyr27eJ
 
-# install dependencies
-npm install
-
 # index data
+cd server 
+npm install
 node indexer.js
 
 # start client
+cd client
+npm install
 npm run serve
 
 http://localhost:8080/
-
 ```
