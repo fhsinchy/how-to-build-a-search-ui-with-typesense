@@ -23,8 +23,6 @@
                   <option value="" selected disabled>Sort By</option>
                   <option value="publication_year:desc">Year Descending</option>
                   <option value="publication_year:asc">Year Ascending</option>
-                  <option value="title:desc">Title Descending</option>
-                  <option value="title:asc">Title Ascending</option>
                   <option value="average_rating:desc">Average Rating Descending</option>
                   <option value="average_rating:asc">Average Rating Ascending</option>
                 </select>
